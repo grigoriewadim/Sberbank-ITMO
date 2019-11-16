@@ -11,23 +11,33 @@ public class Random15 {
      */
     public static void main(String[] args) {
         int[] randomNumbers = randomNumbers();
-
+        System.out.println(Arrays.toString(randomNumbers));
         // TODO implement
-
-
-        // TODO implement
-
+        int evens = evens(randomNumbers);
+        System.out.println(evens);
     }
 
     public static int[] randomNumbers() {
         // TODO implement
-
-        return null;
+        Random rnd = new Random();
+        int low = 0, high = 9;
+        int[] mass = new int[15];
+        for (int i = 0; i < mass.length; i++) {
+            int j = rnd.nextInt(high - low) + low;
+            mass[i] = j;
+        }
+        return mass;
     }
 
     private static int evens(int[] arr) {
         // TODO implement
-
-        return 0;
+        int count = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] % 2 == 0) {
+                if (arr[i] == 0) continue;
+                else count++;
+            }
+        }
+        return count;
     }
 }

@@ -1,29 +1,44 @@
 package com.ifmo.lesson3;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 public class UnevenArray {
     /*
     Создайте массив из всех нечётных чисел от 1 до 99, выведите его на экран в строку, а затем
     этот же массив выведите на экран тоже в строку, но в обратном порядке (99 97 95 93 … 7 5 3
     1)
      */
-    public static void main(String[] args) {
-        int[] unevenArray = unevenArray();
+    private static int[] array = new int[100];
 
-        for (int i : unevenArray) {
-            System.out.print(i +" ");
+    private static int[] create() {
+        for (int i = 1; i < 100; i++) {
+            if (i % 2 != 0) {
+                array[i] = i;
+            }
         }
-        System.out.print("\n");
-        for (int i = unevenArray.length-1; i>=0; i--){
-            System.out.print(unevenArray[i] + " ");
-        }
+        return array;
     }
 
-    public static int[] unevenArray() {
-        int[] arrint = new int[50];
-        for (int i=0; i<=49; i++){
-            arrint[i]=i*2+1;
+    private static int[]reverse() {
+        int l = array.length;
+        for (int j = 0; j < l / 2; j++) {
+            int temp = array[j];
+            array[j] = array[l - j - 1];
+            array[l - j - 1] = temp;
         }
+        return array;
+    }
 
-        return arrint;
+    private static void summArray(int[] array) {
+        create();
+        int[] newArray = new int[200];
+        newArray = Arrays.copyOf(array, array.length);
+
+
+    }
+
+    public static void main(String[] args) {
+//        summArray();
     }
 }
