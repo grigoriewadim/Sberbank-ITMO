@@ -1,5 +1,6 @@
 package com.ifmo.lesson6;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -17,14 +18,30 @@ import java.util.Iterator;
  */
 public class ArrayList implements List {
     private static final int DEFAULT_SIZE = 10;
-
     private Object[] values;
+
+    private int rest;
 
     /**
      * Создаёт новый {@link #ArrayList} с размером внутреннего массива по умолчанию.
      */
     public ArrayList() {
         this(DEFAULT_SIZE);
+    }
+
+    private class ListIterator implements Iterator<Object> {
+
+        private int index;
+
+        @Override
+        public boolean hasNext() {
+            return index < rest;
+        }
+
+        @Override
+        public Object next() {
+            return get(index++);
+        }
     }
 
     /**
@@ -37,33 +54,51 @@ public class ArrayList implements List {
         values = new Object[initialSize];
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void add(Object val) {
         // TODO implement.
+        if (rest == values.length) reSize();
+        values[rest++] = val;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object get(int i) {
         // TODO implement.
-
-        return null;
+        if (i < 0 || i >= rest) return null;
+        return values[i];
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object remove(int i) {
         // TODO implement.
-
-        return null;
+        if (i < 0 || i >= rest) return null;
+        Object value = values[i];
+        for (int j = i; j < rest - 1; j++) {
+            values[j] = values[j + 1];
+        }
+        values[--rest] = null;
+        return value;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Iterator iterator() {
         // TODO implement.
-
-        return null;
+        return new ListIterator();
+    }
+    //расширяем в два раза
+    private void reSize() {
+        values = Arrays.copyOf(values, values.length * 2);
     }
 }

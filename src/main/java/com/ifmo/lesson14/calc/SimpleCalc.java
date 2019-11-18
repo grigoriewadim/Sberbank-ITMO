@@ -44,25 +44,30 @@ public class SimpleCalc {
 
     static int calculate(String line) throws CalcException {
         if (!line.contains("+") && !line.contains("-") && !line.contains("="))
-            throw new CalcException("Expression must contain '+' or '-': " + line);
+            throw new CalcException("Expression must contain '+' or '-' or '=': " + line);
         String[] operands = line.split(" ");
         if (operands.length != 3)
             throw new CalcException("Expression must have only 3 operands separated with space (e.g. 2 + 4): " + line);
-        OPERATOR operator = null;
-        try {
-            operator = OPERATOR.parse(operands[1]);
-            int op1 = parseOperand(operands[0]);
+        OPERATOR operator = OPERATOR.parse(operands[1]);
+        if (operator == OPERATOR.EQUALLY) {
             int op2 = parseOperand(operands[2]);
-            return operator.apply(op1, op2);
-        } catch (Exception e) {
-            StringTokenizer st = new StringTokenizer(line, "=");
-            while (st.hasMoreTokens()) {
-                map.put(st.nextToken().replaceAll("\\s+", ""),
-                        Integer.parseInt(st.nextToken().replaceAll("\\s+", "")));
-
-            }
+            map.put(operands[0], op2);
+            return op2;
         }
-        return 0;
+        //
+        int op1 = parseOperand(operands[0]);
+        int op2 = parseOperand(operands[2]);
+        if (map.containsKey(operands[0])) {
+            map.get(operands[0]);
+        } else {
+            parseOperand(operands[0]);
+        }
+        if (map.containsKey(operands[2])) {
+            map.get(operands[2]);
+        } else {
+            parseOperand(operands[2]);
+        }
+        return operator.apply(op1, op2);
     }
 
 
@@ -75,7 +80,7 @@ public class SimpleCalc {
     }
 
     private enum OPERATOR {
-        PLUS, MINUS;
+        PLUS, MINUS, EQUALLY;
 
         int apply(int arg1, int arg2) throws CalcException {
             switch (this) {
@@ -86,6 +91,7 @@ public class SimpleCalc {
                 case MINUS:
                     return arg1 - arg2;
             }
+
             throw new CalcException("Unsupported operator: " + this);
         }
 
@@ -96,6 +102,9 @@ public class SimpleCalc {
 
                 case "-":
                     return MINUS;
+
+                case "=":
+                    return EQUALLY;
             }
 
             throw new CalcException("Incorrect operator: " + str);

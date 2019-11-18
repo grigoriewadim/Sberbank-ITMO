@@ -11,10 +11,8 @@ package com.ifmo.lesson6;
 class Item {
     /** Значение элемента. */
     Object value;
-
     /** Ссылка на следующий элемент. */
     Item next;
-
     /**
      * Инициализирует элемент со значением
      * {@code value}.

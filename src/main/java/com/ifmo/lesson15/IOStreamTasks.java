@@ -10,14 +10,19 @@ import java.util.List;
  */
 public class IOStreamTasks {
     private static byte[] buffer = new byte[2048];
+    private static String pathName = System.getProperty("user.dir");
 
     public static void main(String[] args) {
         File src = new File("D:\\!JAVA!\\Projects\\Sberbank-ITMO-master\\src\\main\\resources\\wap.txt");
         File dst = new File("D:\\!JAVA!\\Projects\\Sberbank-ITMO-master\\src\\main\\resources\\wap_copy.txt");
+        File dec = new File(pathName + "\\out\\" + "wap_decrypte.txt");
         try (InputStream in = new FileInputStream(src);
-             OutputStream out = new FileOutputStream(dst)) {
+             OutputStream out = new FileOutputStream(dst);
+             OutputStream decrypt = new FileOutputStream(dec)) {
             copy(in, out);
             assembly(split(dst, new File("wap_part.txt"), 102400), new File("fullFile.txt"));
+            encrypt(in, decrypt, "12345");
+            encrypt(src, dec, new File(pathName + "\\out\\key.file"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -33,7 +38,6 @@ public class IOStreamTasks {
     public static void copy(InputStream src, OutputStream dst) throws IOException {
         // TODO implement
         int len = 0;
-        //byte[] buffer = new byte[1024];
         while ((len = src.read(buffer)) > 0) {
             dst.write(buffer, 0, len);
         }
@@ -58,7 +62,7 @@ public class IOStreamTasks {
         try (FileInputStream fileInputStream = new FileInputStream(file);
              BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream)) {
             while ((readBytes = bufferedInputStream.read(fileSize)) > 0) {
-                String partlyName = String.format("%s.%03d", System.getProperty("user.dir") + "\\out" + "\\" + dstDir, partCounter++);
+                String partlyName = String.format("%s.%03d", pathName + "\\out" + "\\" + dstDir, partCounter++);
                 File newFile = new File(dstDir.getParent(), partlyName);
                 try (FileOutputStream out = new FileOutputStream(newFile)) {
                     out.write(fileSize, 0, readBytes);
@@ -77,7 +81,6 @@ public class IOStreamTasks {
      * @throws IOException Будет выброшен в случае ошибки.
      */
     public static void assembly(List<File> files, File dst) throws IOException {
-        //byte[] buffer = new byte[1024];
         int readBytes = 0;
         File fullFile = new File(System.getProperty("user.dir") + "\\out" + "\\" + dst);
         try (FileOutputStream fileOutputStream = new FileOutputStream(fullFile);
@@ -85,10 +88,9 @@ public class IOStreamTasks {
             for (File file : files) {
                 Files.copy(file.toPath(), bufferedOutputStream); //abstract path
                 FileInputStream fileInputStream = new FileInputStream(file);
-                while ( (readBytes = fileInputStream.read(buffer)) >= 0)
+                while ((readBytes = fileInputStream.read(buffer)) >= 0)
                     fileOutputStream.write(buffer, 0, readBytes);
             }
-
         }
     }
 
@@ -101,7 +103,13 @@ public class IOStreamTasks {
      * @throws IOException Будет выброшен в случае ошибки.
      */
     public static void encrypt(InputStream src, OutputStream dst, String passphrase) throws IOException {
-
+        int readBytes = 0;
+        try (BufferedInputStream input = new BufferedInputStream(src);
+             BufferedOutputStream output = new BufferedOutputStream(dst)) {
+            while ((readBytes = input.read()) > 0) {
+                output.write(readBytes ^ Integer.parseInt(passphrase));
+            }
+        }
     }
 
     /**
@@ -113,6 +121,19 @@ public class IOStreamTasks {
      * @throws IOException Будет выброшен в случае ошибки.
      */
     public static void encrypt(File src, File dst, File key) throws IOException {
-
+        StringBuffer sb = new StringBuffer();
+        FileInputStream fileStream = new FileInputStream(key);
+        BufferedReader br = new BufferedReader(new InputStreamReader(fileStream));
+        String passwordLine;
+        while ((passwordLine = br.readLine()) != null) {
+            sb.append(passwordLine).append(System.lineSeparator());
+        }
+        int bytes;
+        try (FileInputStream inputStream = new FileInputStream(src);
+             FileOutputStream outputStream = new FileOutputStream(dst)) {
+            while ((bytes = inputStream.read()) > 0) {
+                outputStream.write(bytes ^ Integer.parseInt(sb.toString().replaceAll("\\D+", "")));
+            }
+        }
     }
 }

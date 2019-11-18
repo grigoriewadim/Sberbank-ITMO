@@ -1,5 +1,4 @@
 package com.ifmo.lesson5;
-
 /**
  * Односвязный список, где каждый предыдущий
  * элемент харнит ссылку на следующий. Список
@@ -53,13 +52,11 @@ public class LinkedList {
      */
     public Shape remove(int i) {
         if (i < 0) return null;
-
         if (i == 0) {
             Shape val = head.value;
             head = null;
             return val;
         }
-
         Item item = found(i - 1);
         if (item != null) {
             if (item.next != null) {
@@ -70,9 +67,9 @@ public class LinkedList {
         }
         return null;
     }
-
     /**
      * Ищет объект с заданным индексом
+     *
      * @param i Индекс, по которому будет производится поиск.
      * @return Объект типа Item или {@code null}, если не найден
      */
@@ -88,7 +85,6 @@ public class LinkedList {
 
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
-
         list.add(new Rectangle(10.0, 12.0));
     }
 }

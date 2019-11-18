@@ -5,7 +5,7 @@ package com.ifmo.lesson4;
  * Библиотека ограничена по числу типов книг, это ограничение задается аргументом
  * конструктора maxBookKinds. Например, если библиотека ограничена числом 10,
  * то это означает, что она может хранить 10 разных книг, но любое их количество.
- *
+ * <p>
  * Если из библиотеки убираются все книги одного типа, то освобождается место,
  * на которое можно добавить книгу другого типа.
  * Например:
@@ -23,7 +23,7 @@ package com.ifmo.lesson4;
  *     // Теперь мы можем успешно добавить "Войну и мир".
  *     library.put(new Book("Tolstoy", "War and peace"), 6); // return true
  * </pre>
- *
+ * <p>
  * Если попытаться взять из библиотеки больше книг, чем у нее есть, то она
  * должна вернуть только число книг, которые в ней находились и освободить место.
  * Например:
@@ -46,63 +46,50 @@ public class Library {
     /**
      * Add books to library.
      *
-     * @param book Book to add.
+     * @param book     Book to add.
      * @param quantity How many books to add.
      * @return {@code True} if book successfully added, {@code false} otherwise.
      */
     public boolean put(Book book, int quantity) {
         ShelfIndex shelfIndex = findShelf(book);
-
         if (shelfIndex.shelf != null) {
             shelfIndex.shelf.quantity += quantity;
-
             return true;
         }
 
         if (shelfIndex.index >= 0) {
             shelves[shelfIndex.index] = new Shelf(book, quantity);
-
             return true;
         }
-
         return false;
     }
 
     /**
      * Take books from library.
      *
-     * @param book Book to take.
+     * @param book     Book to take.
      * @param quantity How many books to take.
      * @return Actual number of books taken.
      */
     public int take(Book book, int quantity) {
         ShelfIndex shelfIndex = findShelf(book);
-
         Shelf shelf = shelfIndex.shelf;
-
         if (shelf != null) {
             shelf.quantity -= quantity;
-
             if (shelf.quantity <= 0) {
                 int taken = quantity + shelf.quantity;
-
                 shelves[shelfIndex.index] = null;
-
                 return taken;
             }
-
             return quantity;
         }
-
         return 0;
     }
 
     private ShelfIndex findShelf(Book book) {
         int nullIdx = -1;
-
         for (int i = 0; i < shelves.length; i++) {
             Shelf shelf = shelves[i];
-
             if (shelf != null) {
                 if (shelf.book.author.equals(book.author)
                         && shelf.book.title.equals(book.title)) {
@@ -112,7 +99,6 @@ public class Library {
                 nullIdx = i;
             }
         }
-
         return new ShelfIndex(null, nullIdx);
     }
 }
