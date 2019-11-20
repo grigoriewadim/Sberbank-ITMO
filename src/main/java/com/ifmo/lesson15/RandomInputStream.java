@@ -17,6 +17,7 @@ import java.util.Random;
 public class RandomInputStream extends InputStream {
     private final Random random;
     private final long length;
+    private long index;
 
     public RandomInputStream(Random random, long length) {
         this.random = random;
@@ -26,15 +27,6 @@ public class RandomInputStream extends InputStream {
     @Override
     public int read() throws IOException {
         // TODO implement
-        int index = 0;
-        RandomInputStream stream =
-                new RandomInputStream(random, length);
-        ArrayList<Integer> arrayList = new ArrayList<>();
-        int readBytes;
-        while((readBytes = stream.read()) > 0) {
-            arrayList.add(readBytes);
-            index++;
-        }
-        return arrayList.get(index);
+        return (length - index++) > 0? random.nextInt(256): -1;
     }
 }

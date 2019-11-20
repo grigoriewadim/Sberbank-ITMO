@@ -1,5 +1,8 @@
 package com.ifmo.lesson16.print;
 
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
+import org.w3c.dom.ls.LSOutput;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -33,23 +36,28 @@ public class PrintServer implements Externalizable {
         }
     }
 
-    private void answersToClient(InputStream command) throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(command));
-        String line;
-        if ((line = in.readLine()) != null) {
-            if (line.contains("/server_time")) {
-                Date data = new Date();
-            }
-        }
-
-    }
-
     private void process(Socket sock) throws IOException, ClassNotFoundException {
         String host = sock.getInetAddress().getHostAddress();
         try (ObjectInputStream objIn = new ObjectInputStream(sock.getInputStream());
             OutputStream out = sock.getOutputStream()) {
             Object obj = objIn.readObject();
-            printMessage((Message) obj, host);
+            try {
+                ObjectOutputStream outputStream = new ObjectOutputStream(out);
+                if (obj.toString().contains("/ping")) {
+                    outputStream.write(Integer.parseInt("Ping......"));
+                }
+                if (obj.toString().contains("/server_time")) {
+                    Date data = new Date();
+                    outputStream.write(Integer.parseInt(String.valueOf(data.getTime())));
+                }
+                if (obj.toString().contains("/list_users")) {
+                    outputStream.write(Integer.parseInt("User_list"));
+                }
+                System.out.println(out.toString());
+                out.flush();
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (IOException | ClassNotFoundException | RuntimeException e) {
             System.err.println("Failed process connection from: " + host);
             e.printStackTrace();
@@ -71,11 +79,11 @@ public class PrintServer implements Externalizable {
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-
+//        out.writeInt();
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-
+//        in.readInt();
     }
 }

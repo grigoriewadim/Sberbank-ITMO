@@ -1,8 +1,6 @@
 package com.ifmo.lesson16.print;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.*;
 import java.util.Enumeration;
 import java.util.Scanner;
@@ -30,8 +28,7 @@ public class PrintClient {
                 System.out.println("Enter new name:");
                 name = scanner.nextLine();
                 continue;
-            }
-            else if ("/myaddr".equals(msg)) {
+            } else if ("/myaddr".equals(msg)) {
                 printAddresses();
                 continue;
             }
@@ -41,7 +38,7 @@ public class PrintClient {
 
     private void printAddresses() throws SocketException {
         Enumeration e = NetworkInterface.getNetworkInterfaces();
-        while(e.hasMoreElements()) {
+        while (e.hasMoreElements()) {
             NetworkInterface n = (NetworkInterface) e.nextElement();
             Enumeration ee = n.getInetAddresses();
             while (ee.hasMoreElements()) {
@@ -63,7 +60,11 @@ public class PrintClient {
             try (OutputStream out = sock.getOutputStream()) {
                 ObjectOutputStream objOut = new ObjectOutputStream(out);
                 objOut.writeObject(msg);
-                objOut.flush();
+
+                BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+                String serverWord = in.readLine();
+                System.out.println(serverWord);
+                in.close();
             }
         }
     }

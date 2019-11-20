@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static javax.swing.UIManager.getString;
+
 /*
     Реализуйте все методы с использованием потоков ввода-вывода.
  */
@@ -87,7 +89,7 @@ public class IOStreamTasks {
         try (FileOutputStream fileOutputStream = new FileOutputStream(fullFile);
              BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream)) {
             for (File file : files) {
-                Files.copy(file.toPath(), bufferedOutputStream); //abstract path
+                //Files.copy(file.toPath(), bufferedOutputStream); //abstract path
                 FileInputStream fileInputStream = new FileInputStream(file);
                 while ((readBytes = fileInputStream.read(buffer)) >= 0)
                     fileOutputStream.write(buffer, 0, readBytes);
@@ -104,12 +106,11 @@ public class IOStreamTasks {
      * @throws IOException Будет выброшен в случае ошибки.
      */
     public static void encrypt(InputStream src, OutputStream dst, String passphrase) throws IOException {
-        int readBytes = 0;
-        try (BufferedInputStream input = new BufferedInputStream(src);
-             BufferedOutputStream output = new BufferedOutputStream(dst)) {
-            while ((readBytes = input.read()) > 0) {
-                output.write(readBytes ^ Integer.parseInt(passphrase));
-            }
+        int len;
+        byte[] buf = new byte[1024];
+        while ((len = src.read(buf)) > 0) {
+            encrypt(buf, passphrase);
+            dst.write(buf, 0, len);
         }
     }
 
@@ -122,19 +123,53 @@ public class IOStreamTasks {
      * @throws IOException Будет выброшен в случае ошибки.
      */
     public static void encrypt(File src, File dst, File key) throws IOException {
-        StringBuffer sb = new StringBuffer();
-        FileInputStream fileStream = new FileInputStream(key);
-        BufferedReader br = new BufferedReader(new InputStreamReader(fileStream));
-        String passwordLine;
-        while ((passwordLine = br.readLine()) != null) {
-            sb.append(passwordLine).append(System.lineSeparator());
+        byte[] bufIn = new byte[1024];
+        String passphrase = getString(key);
+        try (InputStream in = new BufferedInputStream(new FileInputStream(src));
+             OutputStream out = new BufferedOutputStream(new FileOutputStream(dst))) {
+            encrypt(in, out, passphrase);
         }
-        int bytes;
-        try (FileInputStream inputStream = new FileInputStream(src);
-             FileOutputStream outputStream = new FileOutputStream(dst)) {
-            while ((bytes = inputStream.read()) > 0) {
-                outputStream.write(bytes ^ Integer.parseInt(sb.toString().replaceAll("\\D+", "")));
+    }
+
+    /**
+     * Шифрует/дешифрует массив байт с помощью ключевой строки
+     *
+     * @param array      массив, который должен быть зашифрован/расшифрован.
+     * @param passphrase строка, с помощью которой должен быть зашшифрован/расшифрован массив.
+     */
+    private static void encrypt(byte[] array, String passphrase) {
+        encrypt(array, passphrase.getBytes());
+    }
+
+    /**
+     * Шифрует/дешифрует массив байт с помощью ключивого массива байт
+     *
+     * @param array массив, который должен быть зашифрован/расшифрован.
+     * @param key   массив, с помощью которого должен быть зашшифрован/расшифрован массив.
+     */
+    private static void encrypt(byte[] array, byte[] key) {
+        for (int i = 0, j = 0; i < array.length; i++) {
+            array[i] ^= key[j];
+            j = ++j < key.length ? j : 0;
+        }
+    }
+
+    /**
+     * Возвращает строку полученную из файла
+     *
+     * @param file файл, из которого должна быть получена строка.
+     * @return {@code String} строка.
+     * @throws IOException
+     */
+    private static String getString(File file) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        char[] chars = new char[1024];
+        try (Reader reader = new FileReader(file)) {
+            int len;
+            while ((len = reader.read(chars)) > 0) {
+                sb.append(chars, 0, len);
             }
         }
+        return sb.toString();
     }
 }
