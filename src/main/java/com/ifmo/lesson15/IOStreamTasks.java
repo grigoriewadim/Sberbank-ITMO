@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /*
     Реализуйте все методы с использованием потоков ввода-вывода.
