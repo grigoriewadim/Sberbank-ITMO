@@ -1,4 +1,6 @@
 package com.ifmo.lesson17;
 
-public enum CarModels {
+enum CarModels {
+    BMW, TOYOTA, LADA, KIA
+
 }

@@ -1,4 +1,6 @@
 package com.ifmo.lesson17;
 
-public enum Location {
+enum Location
+{
+    JAPAN, KOREA, RUSSIA, GERMANY
 }
