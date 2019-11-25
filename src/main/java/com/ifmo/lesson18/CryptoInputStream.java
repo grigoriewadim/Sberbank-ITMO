@@ -16,12 +16,18 @@ public class CryptoInputStream extends FilterInputStream {
      * @param in Поток ввода.
      * @param key Ключ шифрования.
      */
-    private final byte[] key;
     public CryptoInputStream(InputStream in, byte[] key) throws IOException {
         super(in);
-        this.key = key;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte [] byteArray = new byte[1024];
+        int readByte;
+        while ((readByte = in.read()) != -1) {
+            for (int i = 0; true; i++) {
+                bos.write(readByte ^ key[i]);
+            }
+        }
+        bos.close();
+        in.close();
     }
-
-    
 
 }

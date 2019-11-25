@@ -1,7 +1,6 @@
 package com.ifmo.lesson18;
 
-import java.io.FilterOutputStream;
-import java.io.OutputStream;
+import java.io.*;
 
 /**
  * Реализовать шифрующий (XOR) поток вывода.
@@ -17,7 +16,16 @@ public class CryptoOutputStream extends FilterOutputStream {
      * @param out Поток вывода.
      * @param key Ключ шифрования.
      */
-    public CryptoOutputStream(OutputStream out, byte[] key) {
+    public CryptoOutputStream(OutputStream out, byte[] key) throws IOException {
         super(out);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        for (int i = 0; i < key.length; i++) {
+            bos.write(bos.toByteArray());
+        }
+
+
+        
+        bos.close();
+        out.close();
     }
 }
