@@ -1,12 +1,5 @@
 package com.ifmo.lesson2;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
-
 public class WallClock {
     /*
     На некотором предприятии инженер Петров создал устройство, на табло которого
@@ -55,13 +48,12 @@ public class WallClock {
         int hours = rndSecond / 3600;
         if (hours < 0) {
             return "Осталось менее часа";
-        } else
-            if (hours == 1) {
-                return "Остался " + hours + " час";
-            }
-            if (hours == 2 || hours == 3 || hours == 4) {
-                return "Осталось " + hours + " часа";
-            }
+        } else if (hours == 1) {
+            return "Остался " + hours + " час";
+        }
+        if (hours == 2 || hours == 3 || hours == 4) {
+            return "Осталось " + hours + " часа";
+        }
         return "Осталось " + hours + " часов";
     }
 }
