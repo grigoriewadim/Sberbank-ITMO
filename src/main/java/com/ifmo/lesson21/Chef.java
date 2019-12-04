@@ -1,6 +1,7 @@
 package com.ifmo.lesson21;
 
 public class Chef implements Runnable {
+
     private Cafe r;
 
     private void makeFood() throws InterruptedException {

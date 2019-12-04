@@ -10,14 +10,14 @@ public class Client implements Runnable {
             Thread.sleep(1000);
             r.putOrderMadeByClient(r.orderId);
             System.out.println("End ordering ");
-            while(!r.orderReceived)
+            while (!r.orderReceived)
                 r.wait();
             r.getOrderReceived();
         }
     }
 
     Client(Cafe r) {
-        this.r=r;
+        this.r = r;
     }
 
     public void run() {
