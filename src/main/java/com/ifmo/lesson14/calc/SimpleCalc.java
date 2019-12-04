@@ -54,7 +54,6 @@ public class SimpleCalc {
             map.put(operands[0], op2);
             return op2;
         }
-        //
         int op1 = parseOperand(operands[0]);
         int op2 = parseOperand(operands[2]);
         if (map.containsKey(operands[0])) {
@@ -69,8 +68,6 @@ public class SimpleCalc {
         }
         return operator.apply(op1, op2);
     }
-
-
     private static int parseOperand(String string) throws CalcException {
         try {
             return Integer.parseInt(string);

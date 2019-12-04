@@ -6,7 +6,6 @@ class Cafe {
     boolean orderReady;
     boolean orderReceived;
     long orderId;
-
     Cafe() {
     }
 

@@ -40,6 +40,7 @@ public class Random12 {
                 index = i;
             }
         }
+
         return index;
     }
 }

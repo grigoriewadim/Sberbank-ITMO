@@ -9,7 +9,6 @@ public class IsEven {
         int n = 24;
         System.out.println(isEven(n));
     }
-
     public static String isEven(int n) {
         // Допустимые строки: "Четное" или "Нечетное"
         return ((n & 1) == 0) ? "Четное" : "Нечетное";

@@ -2,7 +2,10 @@ package com.ifmo.lesson17;
 
 class CarFactory {
     private CarFactory() {
-    } ;
+    }
+
+    ;
+
     static Car factory(Location location) {
         Car car = null;
         if (location == (Location.GERMANY)) {

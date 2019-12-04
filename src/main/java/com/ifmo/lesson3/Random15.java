@@ -12,7 +12,6 @@ public class Random15 {
     public static void main(String[] args) {
         int[] randomNumbers = randomNumbers();
         System.out.println(Arrays.toString(randomNumbers));
-        // TODO implement
         int evens = evens(randomNumbers);
         System.out.println(evens);
     }

@@ -19,6 +19,5 @@ public class DivisionRemainder {
         int result = q / w;
         int rest = q % w;
         System.out.println(q + " / " + w + " = " + result + " и " + rest + " в остатке");
-
     }
 }

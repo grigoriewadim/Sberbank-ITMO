@@ -9,7 +9,6 @@ public class Fibonacci {
     public static void main(String[] args) {
         printFib(11);
     }
-
     private static void printFib(int n) {
         if (n >= 1) System.out.println(1);
         if (n >= 2) System.out.println(1);

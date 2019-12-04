@@ -8,6 +8,7 @@ public class CollectionUtils {
         return () -> new Iterator<T>() {
             private int pos;
             private Iterator<T> current;
+
             @Override
             public boolean hasNext() {
                 if (current == null)
@@ -22,6 +23,7 @@ public class CollectionUtils {
                 }
                 return current.hasNext();
             }
+
             @Override
             public T next() {
                 return current.next();

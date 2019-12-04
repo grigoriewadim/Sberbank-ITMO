@@ -7,6 +7,7 @@ public class Circle extends Oval {
     public Circle(double a, double b) {
         super(a, b);
     }
+
     @Override
     public double area() {
         return Math.PI * (a * a);

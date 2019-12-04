@@ -31,7 +31,6 @@ public class WallClock {
      */
     public static void main(String[] args) {
         int randomSecond = randomSecond();
-
         String remainingHours = remainingHours(randomSecond);
         System.out.println(randomSecond);
         System.out.println(remainingHours);

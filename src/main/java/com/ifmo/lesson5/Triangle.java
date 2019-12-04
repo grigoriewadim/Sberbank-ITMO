@@ -10,6 +10,7 @@ public class Triangle extends Shape {
         this.b = b;
         this.c = c;
     }
+
     @Override
     public double area() {
         double p = (a + b + c) / 2;

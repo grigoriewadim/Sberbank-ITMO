@@ -16,6 +16,7 @@ public class Client implements Runnable {
         }
     }
 
+
     Client(Cafe r) {
         this.r = r;
     }

@@ -7,7 +7,6 @@ public class First55 {
     public static void main(String[] args) {
         printSequence(55);
     }
-
     private static void printSequence(int n) {
         for (int i = 0, result = 1; i < n; i++) {
             System.out.println(result);

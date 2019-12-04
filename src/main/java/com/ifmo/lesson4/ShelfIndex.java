@@ -7,5 +7,6 @@ public class ShelfIndex {
     public ShelfIndex(Shelf shelf, int index) {
         this.shelf = shelf;
         this.index = index;
+
     }
 }

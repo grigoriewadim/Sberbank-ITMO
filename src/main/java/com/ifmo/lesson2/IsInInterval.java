@@ -11,7 +11,6 @@ public class IsInInterval {
     public static void main(String[] args) {
         int rnd = randomInt();
         String inInterval = isInInterval(rnd);
-        // TODO implement
         System.out.println(inInterval);
     }
 

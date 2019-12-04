@@ -19,7 +19,7 @@ public class Random8 {
 
     }
 
-    public static int[] randomNumbers() {
+    public static int[] randomNumbers()  {
         int[] array = new int[8];
         for (int i = 0; i < array.length; i++) {
             array[i] = random.nextInt(10) + 1;

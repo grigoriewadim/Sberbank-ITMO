@@ -13,6 +13,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Counter {
+
     private static final int THREAD_COUNT = 10;
 
     private static class FileIterator implements Iterator, AutoCloseable {

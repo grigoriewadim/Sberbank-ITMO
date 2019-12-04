@@ -12,16 +12,14 @@ public class BiggestInRandom {
      */
     public static void main(String[] args) {
         int rnd = threeDigitRandom();
-
         String largestDigit = largestDigit(rnd);
-
         System.out.println(largestDigit);
     }
 
     public static int threeDigitRandom() {
         // TODO implement
-        double numb = Math.abs(Math.random()*(999)) ;
-     return (int) numb;
+        double numb = Math.abs(Math.random() * (999));
+        return (int) numb;
     }
 
     public static String largestDigit(int rnd) {

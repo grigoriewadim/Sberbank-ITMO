@@ -1,6 +1,6 @@
 package com.ifmo.lesson2;
 
-public class Progression {
+public class Progression  {
     /*
      Создайте программу, выводящую на экран все четырёхзначные числа последовательности
      1000 1003 1006 1009 1012 1015 ….

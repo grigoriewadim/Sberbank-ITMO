@@ -22,7 +22,6 @@ public class IntsOrdering {
     public static String ordering(int a, int b, int c) {
         int[] array = {a, b, c};
         bubbleSort(array);
-
         return "Числа в переменных a, b и c: " + a + ", " + b + ", " + c + "\n" +
                 "Возрастающая последовательность: " + array[0] + ", " + array[1] + ", " + array[2];
     }

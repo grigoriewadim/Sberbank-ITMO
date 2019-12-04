@@ -18,7 +18,6 @@ public class PrintServer implements Externalizable {
     private void start() throws IOException {
         try (ServerSocket ssocket = new ServerSocket(port)) {
             System.out.println("Server started on " + ssocket);
-
             while (true) {
                 Socket sock = ssocket.accept();
                 try {
@@ -36,7 +35,7 @@ public class PrintServer implements Externalizable {
     private void process(Socket sock) throws IOException, ClassNotFoundException {
         String host = sock.getInetAddress().getHostAddress();
         try (ObjectInputStream objIn = new ObjectInputStream(sock.getInputStream());
-            OutputStream out = sock.getOutputStream()) {
+             OutputStream out = sock.getOutputStream()) {
             Object obj = objIn.readObject();
             try {
                 ObjectOutputStream outputStream = new ObjectOutputStream(out);
@@ -52,7 +51,7 @@ public class PrintServer implements Externalizable {
                 }
                 System.out.println(out.toString());
                 out.flush();
-            }catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         } catch (IOException | ClassNotFoundException | RuntimeException e) {

@@ -22,6 +22,7 @@ public class DigitsSum {
         }
         return sum;
     }
+
     private static int convertCharToInt(char item) {
         return Integer.parseInt(String.valueOf(item));
     }

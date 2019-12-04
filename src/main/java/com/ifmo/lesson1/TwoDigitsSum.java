@@ -12,7 +12,6 @@ public class TwoDigitsSum {
     }
 
     public static int sum(int n) {
-        // TODO implement
         int result = 0;
         String[] convert = String.valueOf(n).split("");
         for (int i = 0; i < convert.length; i++) {

@@ -16,7 +16,6 @@ public class Shapes {
         for (Shape shape : shapes) {
             sum += shape.area();
         }
-
         return sum;
     }
 }

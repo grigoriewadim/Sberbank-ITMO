@@ -34,7 +34,6 @@ public class EvenArray {
         }
         System.out.println(builder);
     }
-
     private static void printArrayToColumn(int[] array) {
         Arrays.stream(array).forEach(System.out::println);
     }

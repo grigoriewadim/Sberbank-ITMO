@@ -8,7 +8,6 @@ public class Rectangle extends Shape {
         this.a = a;
         this.b = b;
     }
-
     @Override
     public double area() {
         return a * b;

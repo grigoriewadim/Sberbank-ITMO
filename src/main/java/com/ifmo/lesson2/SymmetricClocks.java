@@ -25,6 +25,7 @@ public class SymmetricClocks {
     private static String appendZero(String str) {
         if (str.length() >= 2) return str;
         return "0" + str;
+
     }
 
     private static String reverseString(String str) {

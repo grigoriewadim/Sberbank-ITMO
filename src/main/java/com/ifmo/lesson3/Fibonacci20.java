@@ -31,6 +31,7 @@ public class Fibonacci20 {
             builder.append(array[i]);
             if (i < array.length - 1) {
                 builder.append(" ");
+
             }
         }
         System.out.println(builder);

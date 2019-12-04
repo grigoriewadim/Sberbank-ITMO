@@ -14,7 +14,6 @@ public class FloatRound {
     public static float round(float n) {
         return n >= 0 ? roundPositiveNumber(n) : roundNegativeNumber(n);
     }
-
     private static float roundPositiveNumber(float n) {
         float a = n % 1;
         if (a > 0.5f) {

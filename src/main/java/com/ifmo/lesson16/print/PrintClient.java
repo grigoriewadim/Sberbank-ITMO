@@ -60,7 +60,6 @@ public class PrintClient {
             try (OutputStream out = sock.getOutputStream()) {
                 ObjectOutputStream objOut = new ObjectOutputStream(out);
                 objOut.writeObject(msg);
-
                 BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
                 String serverWord = in.readLine();
                 System.out.println(serverWord);

@@ -27,7 +27,6 @@ public class SawInputStream extends InputStream {
 
     @Override
     public int read() throws IOException {
-        // TODO implement
         next = next < amplitude ? next : 0;
         return (length - index++) > 0 ? next++ : -1;
     }

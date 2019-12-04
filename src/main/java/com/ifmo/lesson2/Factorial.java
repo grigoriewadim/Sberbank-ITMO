@@ -12,6 +12,7 @@ public class Factorial {
         int n = scanner.nextInt();
         long factorial = factorial(n);
         System.out.println(factorial);
+
     }
 
     public static long factorial(int n) {

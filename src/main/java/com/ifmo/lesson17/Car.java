@@ -5,7 +5,6 @@ class Car {
         this.model = model;
     }
     private CarModels model = null;
-
     @Override
     public String toString() {
         return "Model - " + model;

@@ -17,6 +17,7 @@ public class Message implements Serializable {
     public Message() {
         this(0, null, null);
     }
+
     public long getTimestamp() {
         return timestamp;
     }

@@ -16,11 +16,8 @@ public class TwoArrays {
     public static void main(String[] args) {
         int[] randomNumbers1 = randomNumbers();
         printArrayToLine(randomNumbers1);
-
         int[] randomNumbers2 = randomNumbers();
         printArrayToLine(randomNumbers2);
-
-
         int average1 = average(randomNumbers1);
         int average2 = average(randomNumbers2);
         if (average1 == average2) {

@@ -15,7 +15,7 @@ public class Random4 {
         System.out.println(isIncreasingSequence(randomNumbers));
     }
 
-    public static int[] randomNumbers() {
+    public static int[] randomNumbers()  {
         int[] array = new int[4];
         for (int i = 0; i < array.length; i++) {
             array[i] = random.nextInt(90) + 10;

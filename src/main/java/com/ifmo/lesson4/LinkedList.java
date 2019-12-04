@@ -23,6 +23,7 @@ public class LinkedList {
         }
         //assert find(-1) != null;
         find(-1).next = new Item(val);
+
     }
 
     private Item find(int i) {

@@ -36,6 +36,7 @@ public class UnluckyNumbers {
         for (int i = 5; i > str.length(); i--) {
             builder.append("0");
         }
+
         return builder.append(str).toString();
     }
 }

@@ -26,7 +26,6 @@ public class RandomInputStream extends InputStream {
 
     @Override
     public int read() throws IOException {
-        // TODO implement
-        return (length - index++) > 0? random.nextInt(256): -1;
+        return (length - index++) > 0 ? random.nextInt(256) : -1;
     }
 }

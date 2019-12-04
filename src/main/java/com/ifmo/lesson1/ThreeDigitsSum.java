@@ -1,7 +1,5 @@
 package com.ifmo.lesson1;
 
-import java.util.Spliterator;
-
 public class ThreeDigitsSum {
     /*
     В переменной n хранится натуральное трёхзначное число.
@@ -9,9 +7,7 @@ public class ThreeDigitsSum {
      */
     public static void main(String[] args) {
         int n = 123;
-
         int sum = sum(n);
-
         System.out.println(sum);
     }
 

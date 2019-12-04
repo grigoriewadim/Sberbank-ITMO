@@ -8,7 +8,6 @@ public class Oval extends Shape {
         this.a = a;
         this.b = b;
     }
-
     @Override
     public double area() {
         return Math.PI * a * b;

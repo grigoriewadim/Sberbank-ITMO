@@ -57,6 +57,7 @@ public class IOStreamTasks {
      * @return Список файлов-частей в том порядке, в котором они должны считываться.
      * @throws IOException Будет выброшен в случае ошибки.
      */
+
     public static List<File> split(File file, File dstDir, int size) throws IOException {
         int partCounter = 1;
         List list = new ArrayList(size);
