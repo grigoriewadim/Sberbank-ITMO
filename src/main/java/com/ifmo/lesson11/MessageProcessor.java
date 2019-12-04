@@ -3,7 +3,7 @@ package com.ifmo.lesson11;
 import com.ifmo.lesson11.inner.Message;
 import com.ifmo.lesson11.inner.MessagePriority;
 
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by xmitya on 20.10.16.
@@ -17,6 +17,9 @@ public class MessageProcessor {
 
     private static final String SEPARATOR_1 = " ";
     private static final String SEPARATOR_2 = ",";
+
+    Deque<Message> messages = new LinkedList<>();
+    Deque<Message> messagesCache = new LinkedList<>();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -34,7 +37,7 @@ public class MessageProcessor {
             else if (HELP_CMD.equals(line))
                 printUsage();
 
-            else if(PROCESS_CMD.equals(line))
+            else if (PROCESS_CMD.equals(line))
                 processor.processMessages();
 
             else if (line.startsWith(UNDO_CMD))
@@ -78,12 +81,16 @@ public class MessageProcessor {
     }
 
     private void newMessage(Message message) {
+        messages.offerFirst(message);
         System.out.println("Added message for processing: " + message);
 
     }
 
     private void processMessages() {
-
+        messagesCache.clear();
+        while (messages.peekFirst() != null) {
+            process(messages.pollLast());
+        }
     }
 
     private void process(Message message) {
@@ -95,10 +102,19 @@ public class MessageProcessor {
     }
 
     private void undo(int steps) {
-
+        messagesCache.clear();
+        for (int i = 0; i < steps; i++) {
+            if (messages.peekFirst() == null) break;
+            Message message = messages.pollFirst();
+            messagesCache.offerFirst(message);
+            cancel(message);
+        }
     }
 
     private void redo(int steps) {
-
+        for (int i = 0; i < steps; i++) {
+            if (messagesCache.peekFirst() == null) break;
+            newMessage(messagesCache.pollFirst());
+        }
     }
 }

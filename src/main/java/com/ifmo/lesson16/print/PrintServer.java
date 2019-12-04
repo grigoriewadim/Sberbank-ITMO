@@ -1,8 +1,5 @@
 package com.ifmo.lesson16.print;
 
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
-import org.w3c.dom.ls.LSOutput;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
