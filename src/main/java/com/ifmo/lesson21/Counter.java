@@ -1,6 +1,6 @@
 package com.ifmo.lesson21;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+//import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -43,7 +43,7 @@ public class Counter {
 
         @Override
         public void remove() {
-            throw new NotImplementedException();
+//            throw new NotImplementedException();
         }
 
         @Override

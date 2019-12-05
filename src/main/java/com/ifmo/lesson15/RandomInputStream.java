@@ -1,7 +1,5 @@
 package com.ifmo.lesson15;
 
-import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
