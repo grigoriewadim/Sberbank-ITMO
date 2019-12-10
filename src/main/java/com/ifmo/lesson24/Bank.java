@@ -77,8 +77,8 @@ public class Bank {
             bank.accounts.add(new Account(i, i, randomize));
             bank.users.put(randomize + i, new User(i + 100, "User" + i));
         }
-        CopyOnWriteArrayList cowa = new CopyOnWriteArrayList();
-        cowa.iterator();
+//        CopyOnWriteArrayList cowa = new CopyOnWriteArrayList();
+//        cowa.iterator();
         for (int j = 0; j < 100; j++) {
             int randomAcc1 = random.nextInt(99);
             int randomAcc2 = random.nextInt(randomAcc1);
