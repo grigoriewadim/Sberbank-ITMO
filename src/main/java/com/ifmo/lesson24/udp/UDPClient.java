@@ -17,8 +17,9 @@ public class UDPClient {
             File outFile = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\wap.txt");
             FileInputStream fileInputStream = new FileInputStream(outFile);
             byte[] outArray = fileInputStream.readAllBytes();
+            //System.out.println(outArray.length);
             while (fileInputStream.read() != -1) {
-                DatagramPacket sendPacket = new DatagramPacket(outArray, outArray.length, IPAddress, 9876);
+                DatagramPacket sendPacket = new DatagramPacket(outArray, outArray.length, IPAddress, 4401);
                 socket.send(sendPacket);
             }
             System.out.println("Отправлено");

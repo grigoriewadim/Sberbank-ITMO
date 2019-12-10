@@ -9,21 +9,25 @@ public class UDPServer {
 
     private void createAndListenSocket() {
         try {
-            DatagramSocket socket = new DatagramSocket(9876);
+            DatagramSocket socket = new DatagramSocket(4401);
+            System.out.println(socket.getPort());
+            System.out.println(socket.isBound());
             byte[] incomingData = new byte[1024];
             while (true) {
+                if (socket.isConnected()) {
+                    System.out.println("Соединение установлено! " + socket.getPort());
+                }
                 DatagramPacket incomingPacket = new DatagramPacket(incomingData, incomingData.length);
                 socket.receive(incomingPacket);
                 byte[] data = incomingPacket.getData();
-                ByteArrayInputStream in = new ByteArrayInputStream(data);
-                FileOutputStream output = new FileOutputStream(System.getProperty("user.dir") + "\\src\\main\\resources\\receive.txt");
-                int bufferSize = 1024;
-                byte[] buffer = new byte[bufferSize];
-                int n;
-                n = in.read(buffer, 0, bufferSize);
-                while (n >= 0) {
-                    output.write(buffer, 0, n);
-                    n = in.read(buffer, 0, bufferSize);
+                ByteArrayInputStream inputStream = new ByteArrayInputStream(data);
+                FileOutputStream outputFile = new FileOutputStream(System.getProperty("user.dir") + "\\src\\main\\resources\\receive.txt");
+                byte[] buffer = new byte[1024];
+                int len = inputStream.read(buffer, 0, buffer.length);
+                System.out.println(len);
+                while (len > 0) {
+                    outputFile.write(buffer, 0, len);
+                    len = inputStream.read(buffer, 0, buffer.length);
                 }
                 InetAddress IPAddress = incomingPacket.getAddress();
                 int port = incomingPacket.getPort();
