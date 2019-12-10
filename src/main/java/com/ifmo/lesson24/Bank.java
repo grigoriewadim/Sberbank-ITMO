@@ -72,26 +72,29 @@ public class Bank {
         // выполните перевод вызовом метода transferMoney().
         Bank bank = new Bank();
         Random random = new Random();
-        for (int i = 1; i < 50; i++) {
+        for (int i = 0; i < 200; i++) {
             long randomize = random.nextInt(300);
             bank.accounts.add(new Account(i, i, randomize));
             bank.users.put(randomize + i, new User(i + 100, "User" + i));
         }
-//        CopyOnWriteArrayList cowa = new CopyOnWriteArrayList();
-//        cowa.iterator();
+
+        int chooser = 0;
         for (int j = 0; j < 100; j++) {
-            int randomAcc1 = random.nextInt(99);
-            int randomAcc2 = random.nextInt(randomAcc1);
+            if (chooser == j) {
+                chooser = 100 - j;
+            }
+            int finalChooser = chooser;
+            int finalJ = j;
             Runnable r = () -> {
                 try {
-                    transferMoney(bank.accounts.get(randomAcc1), bank.accounts.get(randomAcc2), random.nextInt(500));
-//                        Thread.sleep(10);
+                    transferMoney(bank.accounts.get(finalChooser), bank.accounts.get(finalJ), random.nextInt(500));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             };
             Thread exec = new Thread(r);
             exec.start();
+            chooser = j;
         }
     }
 
