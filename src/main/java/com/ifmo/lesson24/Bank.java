@@ -1,8 +1,10 @@
 package com.ifmo.lesson24;
 
 import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
@@ -14,7 +16,7 @@ public class Bank {
     private Map<Long, User> users = new ConcurrentHashMap<>();
     private List<Account> accounts = new CopyOnWriteArrayList<>();
 
-    private class User {
+    private static class User {
         private final long id;
         private final String name;
 
@@ -68,13 +70,22 @@ public class Bank {
         // 2. Переводите деньги со случайного аккаунта на случайный в 100 потоках.
         // Другими словами, создайте 100 потоков или пул из 100 потоков, в которых
         // выполните перевод вызовом метода transferMoney().
-        Account account1 = new Account(101, 101, 300);
-        Account account2 = new Account(102, 102, 300);
-        for (int i = 0; i < 100; i++) {
-            Runnable r = ()->{
+        Bank bank = new Bank();
+        Random random = new Random();
+        for (int i = 1; i < 50; i++) {
+            long randomize = random.nextInt(300);
+            bank.accounts.add(new Account(i, i, randomize));
+            bank.users.put(randomize + i, new User(i + 100, "User" + i));
+        }
+        CopyOnWriteArrayList cowa = new CopyOnWriteArrayList();
+        cowa.iterator();
+        for (int j = 0; j < 100; j++) {
+            int randomAcc1 = random.nextInt(99);
+            int randomAcc2 = random.nextInt(randomAcc1);
+            Runnable r = () -> {
                 try {
-                    transferMoney(account1, account2, 300);
-                    Thread.sleep(10);
+                    transferMoney(bank.accounts.get(randomAcc1), bank.accounts.get(randomAcc2), random.nextInt(500));
+//                        Thread.sleep(10);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -100,7 +111,7 @@ public class Bank {
             }
             logger.info("Перевод выполнен ");
         } else {
-            throw new Exception("Не достаточно денег ");
+            logger.warning("Не достаточно денег ");
         }
     }
 }
