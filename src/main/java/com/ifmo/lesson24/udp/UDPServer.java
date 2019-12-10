@@ -16,7 +16,7 @@ public class UDPServer {
                 socket.receive(incomingPacket);
                 byte[] data = incomingPacket.getData();
                 ByteArrayInputStream in = new ByteArrayInputStream(data);
-                FileOutputStream output = new FileOutputStream("D:\\!JAVA!\\Projects\\Sberbank-ITMO-master\\src\\main\\resources\\receive.txt");
+                FileOutputStream output = new FileOutputStream(System.getProperty("user.dir") + "\\src\\main\\resources\\receive.txt");
                 int bufferSize = 1024;
                 byte[] buffer = new byte[bufferSize];
                 int n;

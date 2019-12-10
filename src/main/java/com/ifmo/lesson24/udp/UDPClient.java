@@ -14,7 +14,7 @@ public class UDPClient {
             DatagramSocket socket = new DatagramSocket();
             InetAddress IPAddress = InetAddress.getByName("localhost");
             byte[] read = new byte[1024];
-            File outFile = new File("D:\\!JAVA!\\Projects\\Sberbank-ITMO-master\\src\\main\\resources\\wap.txt");
+            File outFile = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\wap.txt");
             FileInputStream fileInputStream = new FileInputStream(outFile);
             byte[] outArray = fileInputStream.readAllBytes();
             while (fileInputStream.read() != -1) {
